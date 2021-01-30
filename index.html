@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="booking-flights">
+
+        <!--Header and Menu Section-->
+        <header class="container">
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a class="active" href="#">Sign Up</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!--Booking Section-->
+        <main class="main-content container">
+            <div class="booking-form">
+                <h3>Booking Flights</h3>
+                <div class="input-group">
+                    <label for="">Flying From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+                </div>
+                <div class="input-group">
+                    <label for="">Flying To</label>
+                    <input class="inp-style" type="text" name="" placeholder="New York, United States">
+                </div>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label" for="">Departure</label>
+                            <input class="inp-style" type="date" name="">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Return</label>
+                        <input class="inp-style" type="date" name="">
+                    </div>
+                </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">First Class ($150)</label>
+                        <input id="first-class-count" class="inp-style inp-width" type="number" name="" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <button class="plus-button" onclick="handleBookingFlights('first-class', true)">+</button>
+                        <button class="minus-button" onclick="handleBookingFlights('first-class', false)">-</button>
+                    </div>
+                </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id="economy-class-count" class="inp-style inp-width" type="number" name="" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <button class="plus-button" onclick="handleBookingFlights('economy-class', true)">+</button>
+                        <button class="minus-button" onclick="handleBookingFlights('economy-class', false)">-</button>
+                    </div>
+                </div>
+                <div class="calculations">
+                    <div class="amount">
+                        <div class="left">
+                            <p>Subtotal</p>
+                        </div>
+                        <div class="right">
+                            <p id="total-price">$00</p>
+                        </div>
+                    </div>
+
+                    <div class="amount">
+                        <div class="left">
+                            <p>Charge 10% VAT</p>
+                        </div>
+                        <div class="right">
+                            <p id="tax-amount">$00</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="amount">
+                        <div class="left">
+                            <h4>Total</h4>
+                        </div>
+                        <div class="right">
+                            <p id="grand-total">$00</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="book-now" class="btn-style">Book Now</button>
+            </div>
+
+            <div class="booking-content">
+                <h1>discover <br> around the world</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                    veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt
+                    nobise
+                    voluptatibus quam</p>
+            </div>
+            </section>
+
+    </div>
+     
+        <!--Successfully booking area -->
+    <div id="successfully-booking-area">
+        <h1>Successfully Booking Done.</h1>
+        <h5>Check your mail for more details.</h5>
+    </div>
+
+    <!--JavaScript Part Start-->
+    <script>
+        function handleBookingFlights(flight, isIncrease) {
+            const flightCount = getInputValue(flight);
+
+            let flightNewCount = flightCount;
+            if (isIncrease == true) {
+                flightNewCount = flightCount + 1;
+            }
+            if (isIncrease == false && flightCount > 0) {
+                flightNewCount = flightCount - 1;
+            }
+
+            document.getElementById(flight + '-count').value = flightNewCount;
+            calculateTotal();
+
+        }
+    
+        //<--Calculate Total-->
+        function calculateTotal() {
+            const firstClassCount = getInputValue('first-class');
+            const economyClassCount = getInputValue('economy-class');
+
+            const totalPrice = firstClassCount * 150 + economyClassCount * 100;
+            document.getElementById('total-price').innerText = '$' + totalPrice;
+
+            const tax = Math.round(totalPrice * 0.1);
+            document.getElementById('tax-amount').innerText = '$' + tax;
+
+            const grandTotal = totalPrice + tax;
+            document.getElementById('grand-total').innerText = '$' + grandTotal;
+
+        }
+
+        function getInputValue(flight) {
+            const flightInput = document.getElementById(flight + '-count');
+            const flightCount = parseInt(flightInput.value);
+            return flightCount;
+
+        }
+        
+        //<--Book Now Button Part-->
+        const bookNowBtn = document.getElementById("book-now");
+            bookNowBtn.addEventListener("click", function(){
+            const bookingFlights = document.getElementById("booking-flights");
+            bookingFlights.style.display = "none";
+            const successfullyBookingArea = document.getElementById("successfully-booking-area");
+            successfullyBookingArea.style.display = "block";
+
+        })
+
+    </script>
+    <!--JavaScript-Part-End-->
+
+    <!--Thank You-->
+</body>
+
+</html>
